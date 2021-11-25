@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nintendoswitchapp/app/home/view/components/logo/logo.dart';
 
 class Screen extends StatelessWidget {
   const Screen({Key? key}) : super(key: key);
@@ -6,16 +7,21 @@ class Screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (ctx, constraint) {
+      //tamanho proporcional
+      final width = constraint.maxWidth * .88;
+      final height = constraint.maxHeight * .88;
       return Center(
         child: Container(
-          width: constraint.maxWidth * .88,
-          height: constraint.maxHeight * .88,
-          decoration: const BoxDecoration(
-            color: Color(0xFF000000),
+          alignment: Alignment.center,
+          width: width,
+          height: height,
+          decoration: BoxDecoration(
+            color: const Color(0xFF000000),
             borderRadius: BorderRadius.all(
-              Radius.circular(10),
+              Radius.circular(width * .08),
             ),
           ),
+          child: const Logo(),
         ),
       );
     });

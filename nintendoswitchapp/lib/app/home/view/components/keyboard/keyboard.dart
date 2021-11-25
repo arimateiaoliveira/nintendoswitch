@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:nintendoswitchapp/app/home/view/components/keyboard/components/big_button.dart';
 import 'package:nintendoswitchapp/app/home/view/components/keyboard/components/digital_button.dart';
+import 'package:nintendoswitchapp/app/home/view/components/keyboard/components/digital_button_set.dart';
+import 'package:nintendoswitchapp/app/home/view/components/keyboard/components/home_button.dart';
 import 'package:nintendoswitchapp/app/home/view/components/keyboard/components/sideboard.dart';
+import 'package:nintendoswitchapp/app/home/view/components/keyboard/components/sound_button.dart';
+import 'package:nintendoswitchapp/app/home/view/components/keyboard/components/volume_button.dart';
 
 class Keyboard extends StatelessWidget {
   const Keyboard({Key? key}) : super(key: key);
@@ -9,29 +13,30 @@ class Keyboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        //expanded width calculate - side width / screen width -
-        const Expanded(
-          flex: 33,
-          child: SideBoard(
-            actionDownButton: BigButton(size: 50),
+        const SideBoard(
+          position: Position.left,
+          color: Color(0xFF00BDDD),
+          soundButton: VolumeButton(),
+          actionUPButton: BigButton(),
+          actionDownButton: DigitalButtonSet(
+            model: DigitalModel.direction,
           ),
+          auxButton: SoundButton(),
         ),
-        Expanded(
-          flex: 34,
-          child: Container(),
-        ),
-        Expanded(
-          flex: 33,
-          child: SideBoard(
-            position: Position.right,
-            color: const Color(0xFFFF5F53),
-            actionDownButton: DigitalButton.type1(
-              buttonType1: DigitalButtonType1.up,
-            ),
-            actionUPButton: const BigButton(size: 50),
+        //TODO: implement logo
+        const Text('LOGO'),
+        const SideBoard(
+          position: Position.right,
+          color: Color(0xFFFF5F53),
+          soundButton: VolumeButton(isPlus: true),
+          actionDownButton: BigButton(),
+          actionUPButton: DigitalButtonSet(
+            model: DigitalModel.action,
           ),
+          auxButton: HomeButton(),
         ),
       ],
     );

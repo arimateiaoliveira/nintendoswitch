@@ -1,33 +1,31 @@
 import 'package:flutter/material.dart';
 
 class BigButton extends StatelessWidget {
-  final double size;
-  const BigButton({
-    Key? key,
-    required this.size,
-  }) : super(key: key);
+  const BigButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: size,
-      width: size,
-      decoration: BoxDecoration(
-        border: Border.all(),
-        shape: BoxShape.circle,
-        gradient: const LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Color(0xFF686D70),
-            Color(0xFF050F11),
-          ],
+    return LayoutBuilder(builder: (ctx, constraints) {
+      return Container(
+        alignment: Alignment.center,
+        height: constraints.maxWidth * .66,
+        width: constraints.maxWidth * .66,
+        decoration: BoxDecoration(
+          border: Border.all(),
+          shape: BoxShape.circle,
+          gradient: const LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xFF686D70),
+              Color(0xFF050F11),
+            ],
+          ),
         ),
-      ),
-      child: LayoutBuilder(
-        builder: (ctx, constraint) {
-          return Center(
-            child: Container(
+        child: LayoutBuilder(
+          builder: (ctx, constraint) {
+            return Container(
+              alignment: Alignment.center,
               //size calcule - width 47 / width 58 -
               width: constraint.maxWidth * .81,
               height: constraint.maxWidth * .81,
@@ -44,31 +42,29 @@ class BigButton extends StatelessWidget {
               ),
               child: LayoutBuilder(
                 builder: (ctx, constraint) {
-                  return Center(
-                    child: Container(
-                      //size calcule - width 43,5 / width 47 -
-                      width: constraint.maxWidth * .93,
-                      height: constraint.maxWidth * .93,
-                      decoration: BoxDecoration(
-                        border: Border.all(),
-                        shape: BoxShape.circle,
-                        gradient: const LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Color(0xFF676A6F),
-                            Color(0xFF242625),
-                          ],
-                        ),
+                  return Container(
+                    //size calcule - width 43,5 / width 47 -
+                    width: constraint.maxWidth * .93,
+                    height: constraint.maxWidth * .93,
+                    decoration: BoxDecoration(
+                      border: Border.all(),
+                      shape: BoxShape.circle,
+                      gradient: const LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Color(0xFF676A6F),
+                          Color(0xFF242625),
+                        ],
                       ),
                     ),
                   );
                 },
               ),
-            ),
-          );
-        },
-      ),
-    );
+            );
+          },
+        ),
+      );
+    });
   }
 }

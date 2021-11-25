@@ -12,8 +12,8 @@ class SideBoard extends StatelessWidget {
   final Widget? auxButton;
   const SideBoard({
     Key? key,
-    this.color = const Color(0xFF00BDDD),
-    this.position = Position.left,
+    required this.color,
+    required this.position,
     this.soundButton,
     this.actionUPButton,
     this.actionDownButton,
@@ -22,46 +22,65 @@ class SideBoard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (ctx, constraint) {
-      return Container(
-        width: constraint.maxWidth,
-        height: constraint.maxHeight,
-        decoration: BoxDecoration(
-          color: color,
-          //no edge reference
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(position == Position.left ? 0 : 70),
-            topRight: Radius.circular(position == Position.left ? 70 : 0),
-          ),
-        ),
-        child: Stack(
-          children: [
-            SideButtonPositioned.sound(
-              position: position,
-              constraints: constraint,
-              child: soundButton,
+    //TODO: implement MediaQ.
+    //dimensoes da tela
+    final size = MediaQuery.of(context).size;
+
+    return SizedBox(
+      child: LayoutBuilder(
+        builder: (ctx, constraint) {
+          //calculo da largura proporcional
+          double widthProportional = (constraint.maxHeight * .48);
+          //radius for position
+          double radiusLeft = position == Position.left ? 0 : 70;
+          double radiusRight = position == Position.left ? 70 : 0;
+          //calculo para controle de overflow
+          //ajusta a largura do side quanto a tela fica mais estreita que o normal
+          if ((widthProportional / size.width) > .33) {
+            widthProportional = size.width * .33;
+          }
+
+          return Container(
+            width: widthProportional,
+            decoration: BoxDecoration(
+              color: color,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(radiusLeft),
+                topRight: Radius.circular(radiusRight),
+              ),
             ),
-            //action/action
-            SideButtonPositioned.actionUP(
-              position: position,
-              constraints: constraint,
-              child: actionUPButton,
-            ),
-            //anologic/action
-            SideButtonPositioned.actionDown(
-              position: position,
-              constraints: constraint,
-              child: actionDownButton,
-            ),
-            //auxiliar
-            SideButtonPositioned.aux(
-              position: position,
-              constraints: constraint,
-              child: auxButton,
-            ),
-          ],
-        ),
-      );
-    });
+            child: LayoutBuilder(builder: (ctx, cnst) {
+              return Stack(
+                children: [
+                  SideButtonPositioned.sound(
+                    position: position,
+                    constraints: cnst,
+                    child: soundButton,
+                  ),
+                  //action/action
+                  SideButtonPositioned.actionUP(
+                    position: position,
+                    constraints: cnst,
+                    child: actionUPButton,
+                  ),
+                  //anologic/action
+                  SideButtonPositioned.actionDown(
+                    position: position,
+                    constraints: cnst,
+                    child: actionDownButton,
+                  ),
+                  //auxiliar
+                  SideButtonPositioned.aux(
+                    position: position,
+                    constraints: cnst,
+                    child: auxButton,
+                  ),
+                ],
+              );
+            }),
+          );
+        },
+      ),
+    );
   }
 }
