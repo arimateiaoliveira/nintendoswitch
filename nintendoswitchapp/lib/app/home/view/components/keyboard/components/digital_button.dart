@@ -19,35 +19,35 @@ class DigitalButton extends StatelessWidget {
     //alinhamento do botao
     final Alignment alignment;
     //alinhamento que receberao alteracao de gradientes
-    final Alignment begin;
-    final Alignment end;
+    final LinearGradient linear;
     //texto ou icone referenciado conforme implementacao
     Widget? child;
 
     //definicoes de gradiente
     if (position == DigitalPosition.up || position == DigitalPosition.left) {
-      begin = Alignment.topCenter;
-      end = Alignment.bottomCenter;
+      linear = const LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [Color(0xFF7B8287), Color(0xFF050F11)]);
     } else {
-      begin = Alignment.topLeft;
-      end = Alignment.bottomRight;
+      linear = const LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Color(0xFF7B8287), Color(0xFF050F11)]);
     }
 
     Widget getChild(double size) {
+      //TODO: diminuir logica
       //definicoes para mddelo de botao do tipo acao
       if (model == DigitalModel.action) {
         if (position == DigitalPosition.up) {
-          child = Text('X',
-              style: TextStyle(color: Colors.white, fontSize: size / 1.5));
+          child = Text('X', style: TextStyle(color: Colors.white, fontSize: size / 1.5));
         } else if (position == DigitalPosition.down) {
-          child = Text('B',
-              style: TextStyle(color: Colors.white, fontSize: size / 1.5));
+          child = Text('B', style: TextStyle(color: Colors.white, fontSize: size / 1.5));
         } else if (position == DigitalPosition.left) {
-          child = Text('Y',
-              style: TextStyle(color: Colors.white, fontSize: size / 1.5));
+          child = Text('Y', style: TextStyle(color: Colors.white, fontSize: size / 1.5));
         } else if (position == DigitalPosition.right) {
-          child = Text('A',
-              style: TextStyle(color: Colors.white, fontSize: size / 1.5));
+          child = Text('A', style: TextStyle(color: Colors.white, fontSize: size / 1.5));
         }
       }
 
@@ -85,17 +85,7 @@ class DigitalButton extends StatelessWidget {
             alignment: Alignment.center,
             width: cnst.maxWidth * .33,
             height: cnst.maxWidth * .33,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              gradient: LinearGradient(
-                begin: begin,
-                end: end,
-                colors: const [
-                  Color(0xFF7B8287),
-                  Color(0xFF050F11),
-                ],
-              ),
-            ),
+            decoration: BoxDecoration(shape: BoxShape.circle, gradient: linear),
             child: LayoutBuilder(
               builder: (ctx, constraint) {
                 //tamanho proporcional

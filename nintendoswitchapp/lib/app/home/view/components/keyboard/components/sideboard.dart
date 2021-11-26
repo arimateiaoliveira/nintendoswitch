@@ -22,7 +22,6 @@ class SideBoard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //TODO: implement MediaQ.
     //dimensoes da tela
     final size = MediaQuery.of(context).size;
 

@@ -57,7 +57,6 @@ class SideButtonPositioned extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //TODO: implements if()
     //dimensoes herdadas
     final double maxH = constraints.maxHeight;
     final double maxW = constraints.maxWidth;

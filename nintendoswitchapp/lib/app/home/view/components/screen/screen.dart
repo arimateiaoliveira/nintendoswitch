@@ -18,10 +18,15 @@ class Screen extends StatelessWidget {
           decoration: BoxDecoration(
             color: const Color(0xFF000000),
             borderRadius: BorderRadius.all(
-              Radius.circular(width * .08),
+              Radius.circular(width * .04),
             ),
           ),
-          child: const Logo(),
+          child: Container(
+            width: width * .39,
+            height: width * .39,
+            decoration: const BoxDecoration(color: Color(0xFFC4C4C4)),
+            child: Logo(color: const Color(0xFFFFFFFF), size: width * .39),
+          ),
         ),
       );
     });
