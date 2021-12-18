@@ -20,8 +20,6 @@ class DigitalButton extends StatelessWidget {
     final Alignment alignment;
     //alinhamento que receberao alteracao de gradientes
     final LinearGradient linear;
-    //texto ou icone referenciado conforme implementacao
-    Widget? child;
 
     //definicoes de gradiente
     if (position == DigitalPosition.up || position == DigitalPosition.left) {
@@ -36,34 +34,26 @@ class DigitalButton extends StatelessWidget {
           colors: [Color(0xFF7B8287), Color(0xFF050F11)]);
     }
 
-    Widget getChild(double size) {
-      //TODO: diminuir logica
+    Widget? getChild(double size) {
       //definicoes para mddelo de botao do tipo acao
       if (model == DigitalModel.action) {
-        if (position == DigitalPosition.up) {
-          child = Text('X', style: TextStyle(color: Colors.white, fontSize: size / 1.5));
-        } else if (position == DigitalPosition.down) {
-          child = Text('B', style: TextStyle(color: Colors.white, fontSize: size / 1.5));
-        } else if (position == DigitalPosition.left) {
-          child = Text('Y', style: TextStyle(color: Colors.white, fontSize: size / 1.5));
-        } else if (position == DigitalPosition.right) {
-          child = Text('A', style: TextStyle(color: Colors.white, fontSize: size / 1.5));
-        }
+        String? text;
+        if (position == DigitalPosition.up) text = 'X';
+        if (position == DigitalPosition.down) text = 'B';
+        if (position == DigitalPosition.left) text = 'Y';
+        if (position == DigitalPosition.right) text = 'A';
+        return Text(text!, style: TextStyle(color: Colors.white, fontSize: size / 1.5));
       }
 
       //definicoes para modelo de botao do tipo direcao
       else if (model == DigitalModel.direction) {
-        if (position == DigitalPosition.up) {
-          child = Icon(Icons.arrow_drop_up, size: size);
-        } else if (position == DigitalPosition.down) {
-          child = Icon(Icons.arrow_drop_down, size: size);
-        } else if (position == DigitalPosition.left) {
-          child = Icon(Icons.arrow_left, size: size);
-        } else if (position == DigitalPosition.right) {
-          child = Icon(Icons.arrow_right, size: size);
-        }
+        IconData? icon;
+        if (position == DigitalPosition.up) icon = Icons.arrow_drop_up;
+        if (position == DigitalPosition.down) icon = Icons.arrow_drop_down;
+        if (position == DigitalPosition.left) icon = Icons.arrow_left;
+        if (position == DigitalPosition.right) icon = Icons.arrow_right;
+        return Icon(icon!, size: size);
       }
-      return child!;
     }
 
     //definicoes de alinhamento
